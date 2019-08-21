@@ -25,13 +25,9 @@ docker run busybox ls
 docker run busybox ping google.com
 ```
 
-List running containers:
+List running containers or all containers:
 ```
 docker ps
-```
-
-List all containers:
-```
 docker ps -a
 ```
 
@@ -39,8 +35,11 @@ Creating, starting and stopping a container:
 ```
 docker create [image]
 docker start [container]
+docker start -a [container] # Attaches to the container, watches for output
 docker stop [container]
 ```
 
+Clean up stopped containers, build cache, dangling images:
+``` docker system prune ```
 
 
