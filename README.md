@@ -71,6 +71,11 @@ Check logs of a container:
 docker logs [container]
 ```
 
+Attach to a container:
+```
+docker attach [container]
+```
+
 Executing commands on an already running container: (note: -it allows input from user)
 ```
 docker exec -it [container] [command] 
@@ -152,4 +157,20 @@ services:
     volumes:
       - /app/node_modules         # What NOT to map (ignore) in the container
       - .:/app                    # What to map, local current working directory to container /app directory
+```
+
+Two step build with Dockerfile(example):
+```
+#Build Phase:
+FROM node:alpine AS build-phase
+WORKDIR '/app'
+COPY pacakge.json .
+RUN npm install
+COPY . .
+RUN npm run build
+
+#Run phase:
+FROM nginx
+COPY --from=build-phase /app/build /usr/share/nginx/html
+# nginx starts automatically as a default start command
 ```
