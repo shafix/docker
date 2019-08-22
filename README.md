@@ -104,8 +104,8 @@ docker build .
 docker build -t [image-name-tag] . # assigns the image a custom name
 docker build -t username/projectname:version . # tagging convetion
 
-docker build -f [Dockerfile name] # specify a specific file to be used as the Dockerfile for the build
-docker build -f Dockerfile.dev
+docker build -f [Dockerfile name] . # specify a specific file to be used as the Dockerfile for the build
+docker build -f Dockerfile.dev .
 ```
 
 docker-compose.yml example:
