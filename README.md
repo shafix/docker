@@ -126,3 +126,28 @@ docker-compose up --build # used to rebuild
 docker-compose down # stop all running containers related to the docker-compose file in current directory, remove them as well
 docker-compose ps # check status of containers related to the docker-compose file in current directory
 ```
+
+Attaching volumes(references between local project directory and container working directory):
+```
+docker run    -v [container_folder_to_ignore]     -v [local_folder]:[container_folder]    [image]
+
+# Assuming working directory is /app 
+# Attaches a link between /app and current local working directory
+# Does NOT attach a link between pwd/node_modules and /app/node_modules
+docker run -p [port:port] -v /app/node_modules -v $(pwd):/app [image] 
+```
+
+Attaching volues with docker-compose(example):
+```
+version: '3'
+services:
+  web:
+    build:
+      context: .                  # Look for dockerfile in local current working directory
+      dockerfile: Dockerfile.dev  # Take a specific file as the Dockerfile
+    ports:
+      - "3000:3000"               # Map ports between local and container
+    volumes:
+      - /app/node_modules         # What NOT to map (ignore) in the container
+      - .:/app                    # What to map, local current working directory to container /app directory
+```
